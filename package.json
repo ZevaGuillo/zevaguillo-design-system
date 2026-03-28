@@ -1,0 +1,41 @@
+{
+  "name": "zevaguillo-design-system",
+  "version": "1.0.0",
+  "description": "A decoupled design system for building UIs and dashboards",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "storybook": "turbo run storybook",
+    "build-storybook": "turbo run build-storybook",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "changesets": "^0.4.0",
+    "clsx": "^2.0.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "prettier": "^3.0.0",
+    "tsup": "^6.5.0",
+    "turbo": "^1.10.0",
+    "typescript": "^5.0.0",
+    "vitest": "^0.30.0"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  }
+}

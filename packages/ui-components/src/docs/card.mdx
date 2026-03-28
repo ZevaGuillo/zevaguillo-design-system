@@ -1,0 +1,189 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Story,
+  Canvas,
+  Markdown,
+} from "@storybook/blocks";
+
+<Meta name="Card Documentation" />
+
+# Card Component
+
+El componente `Card` es un contenedor flexible que agrupa contenido relacionado con un fondo, borde o sombra.
+
+---
+
+## Especificaciones del Componente
+
+### Propiedades
+
+| Prop        | Tipo                                    | Default     | Descripción             |
+| ----------- | --------------------------------------- | ----------- | ----------------------- |
+| `children`  | `ReactNode`                             | -           | Contenido de la tarjeta |
+| `variant`   | `"default" \| "bordered" \| "elevated"` | `"default"` | Estilo visual           |
+| `onClick`   | `() => void`                            | -           | Callback al hacer click |
+| `className` | `string`                                | `""`        | Clases CSS adicionales  |
+
+---
+
+## Cuándo Usar Card
+
+### ✅ Usar Card cuando:
+
+1. **Agrupar contenido relacionado**: Información que forma una unidad lógica
+2. **Destacar contenido**: Para hacerlo más prominente
+3. **Contenedores interactivos**: Elementos clickeables (productos, artículos)
+4. **Dashboard widgets**: Métricas, estadísticas
+5. **Listas de items**: Tarjetas de productos, perfiles
+
+### ❌ NO usar Card cuando:
+
+1. **Formularios simples**: Un solo campo
+2. **Texto extenso**: Considera una sección o página
+3. **Layout estructural**: Para columnas/grid
+
+---
+
+## Guía de Variantes
+
+### Default
+
+```tsx
+<Card>Content</Card>
+```
+
+Fondo gris claro, sin borde visible, sombra sutil.
+Para contenido general dentro de una página.
+
+---
+
+### Bordered
+
+```tsx
+<Card variant="bordered">Content</Card>
+```
+
+Borde visible, fondo transparente.
+Para énfasis visual sin elevación.
+
+---
+
+### Elevated
+
+```tsx
+<Card variant="elevated">Content</Card>
+```
+
+Sombra prominente, fondo blanco.
+Para elementos flotantes o modales.
+
+---
+
+## Mejores Prácticas
+
+### 1. Consistencia en tamaño
+
+```tsx
+// ✅ CORRECTO
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "1rem",
+  }}
+>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+  <Card>Item 3</Card>
+</div>
+```
+
+### 2. No anidar cards
+
+```tsx
+// ❌ INCORRECTO
+<Card>
+  <Card>Nested</Card>
+</Card>
+
+// ✅ CORRECTO
+<div style={{ display: 'flex', gap: '1rem' }}>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+</div>
+```
+
+### 3. Click en toda la tarjeta
+
+```tsx
+// ✅ CORRECTO - Área clickeable grande
+<Card onClick={handleClick} style={{ cursor: "pointer" }}>
+  <h3>Product Name</h3>
+  <p>Description</p>
+</Card>
+```
+
+---
+
+## Implementación
+
+### Grid de productos
+
+```tsx
+import { Card } from "@zevaguillo/ui-components";
+
+function ProductGrid() {
+  const products = [
+    { id: 1, name: "Product 1", price: "$99" },
+    { id: 2, name: "Product 2", price: "$149" },
+    { id: 3, name: "Product 3", price: "$199" },
+  ];
+
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "1rem",
+      }}
+    >
+      {products.map((product) => (
+        <Card key={product.id} onClick={() => console.log(product.id)}>
+          <h3>{product.name}</h3>
+          <p>{product.price}</p>
+        </Card>
+      ))}
+    </div>
+  );
+}
+```
+
+### Card con acciones
+
+```tsx
+import { Card, Button } from "@zevaguillo/ui-components";
+
+function ActionCard() {
+  return (
+    <Card>
+      <h3>Subscription</h3>
+      <p>Pro Plan - $29/month</p>
+      <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+        <Button variant="outline">Cancel</Button>
+        <Button variant="primary">Upgrade</Button>
+      </div>
+    </Card>
+  );
+}
+```
+
+---
+
+## Accesorios Relacionados
+
+- [Button](/docs/components-button--docs) - Para acciones
+- [Badge](/docs/components-badge--docs) - Para etiquetas
+- [Avatar](/docs/components-avatar--docs) - Para perfiles

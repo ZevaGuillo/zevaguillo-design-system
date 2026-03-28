@@ -1,0 +1,253 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Story,
+  Canvas,
+  Markdown,
+} from "@storybook/blocks";
+
+<Meta name="Alert Documentation" />
+
+# Alert Component
+
+El componente `Alert` muestra un mensaje importante al usuario que requiere atención.
+
+---
+
+## Especificaciones del Componente
+
+### Propiedades
+
+| Prop        | Tipo                                          | Default  | Descripción            |
+| ----------- | --------------------------------------------- | -------- | ---------------------- |
+| `children`  | `ReactNode`                                   | -        | Contenido del mensaje  |
+| `variant`   | `"info" \| "success" \| "warning" \| "error"` | `"info"` | Tipo de mensaje        |
+| `title`     | `string`                                      | -        | Título opcional        |
+| `className` | `string`                                      | `""`     | Clases CSS adicionales |
+
+---
+
+## Cuándo Usar Alert
+
+### ✅ Usar Alert cuando:
+
+1. **Información importante**: Mensajes que el usuario debe ver
+2. **Feedback**: Después de una acción del usuario
+3. **Estados del sistema**: Conexión perdida, sesión expirada
+4. **Validación**: Errores en formularios
+
+### ❌ NO usar Alert cuando:
+
+1. **Confirmaciones simples**: Para confirmaciones positivas, usa Toast
+2. **Acciones del usuario**: No uses para pedir input
+3. **Contenido principal**: No uses como contenido principal
+
+---
+
+## Guía de Variantes
+
+### Info (Predeterminada)
+
+```tsx
+<Alert variant="info">New features are available</Alert>
+```
+
+Azul. Información general, noticias, tips.
+
+---
+
+### Success
+
+```tsx
+<Alert variant="success">Changes saved successfully</Alert>
+```
+
+Verde. Operaciones exitosas, confirmaciones.
+
+---
+
+### Warning
+
+```tsx
+<Alert variant="warning">Your session will expire soon</Alert>
+```
+
+Amarillo. Advertencias, recordatorios, alertas.
+
+---
+
+### Error
+
+```tsx
+<Alert variant="error">Something went wrong</Alert>
+```
+
+Rojo. Errores, fallos, problemas críticos.
+
+---
+
+## Mejores Prácticas
+
+### 1. Mensajes claros y accionables
+
+```tsx
+// ✅ CORRECTO
+<Alert variant="error">
+  Unable to save changes. Please check your connection.
+</Alert>
+
+// ❌ INCORRECTO
+<Alert variant="error">
+  Error occurred
+</Alert>
+```
+
+### 2. Usa título para contexto
+
+```tsx
+// ✅ CORRECTO
+<Alert variant="warning" title="Session Expiring">
+  Your session will expire in 5 minutes.
+</Alert>
+```
+
+### 3. No abuses de alerts
+
+```tsx
+// ❌ INCORRECTO - Demasiados alerts
+<div>
+  <Alert variant="info">Welcome!</Alert>
+  <Alert variant="info">New features available</Alert>
+  <Alert variant="info">Check out our blog</Alert>
+</div>
+```
+
+### 4. Posiciona correctamente
+
+```tsx
+// ✅ CORRECTO - Al inicio del contenido relevante
+<div>
+  <Alert variant="error">Payment failed</Alert>
+  <Form />
+</div>
+```
+
+---
+
+## Malas Prácticas
+
+### 1. Usar para diálogos
+
+```tsx
+// ❌ INCORRECTO
+<Alert variant="info">
+  <p>Some message</p>
+  <Button>OK</Button>
+</Alert>
+
+// ✅ CORRECTO - Usar Modal o Prompt
+```
+
+### 2. Mensajes demasiado largos
+
+```tsx
+// ❌ INCORRECTO
+<Alert variant="info">
+  This is a very long message that goes on and on and on...
+</Alert>
+
+// ✅ CORRECTO - Resumir
+<Alert variant="info" title="Note">
+  Important information here.
+</Alert>
+```
+
+### 3. Ignorar el tipo correcto
+
+```tsx
+// ❌ INCORRECTO
+<Alert variant="info">Error occurred!</Alert>
+
+// ✅ CORRECTO
+<Alert variant="error">Error occurred!</Alert>
+```
+
+---
+
+## Implementación
+
+### Con título
+
+```tsx
+import { Alert } from "@zevaguillo/ui-components";
+
+function WithTitle() {
+  return (
+    <Alert variant="warning" title="Important">
+      Please review your settings before continuing.
+    </Alert>
+  );
+}
+```
+
+### En formularios
+
+```tsx
+import { Alert, Input, Button } from "@zevaguillo/ui-components";
+
+function FormWithAlert() {
+  const [error, setError] = useState("");
+
+  return (
+    <div>
+      {error && <Alert variant="error">{error}</Alert>}
+      <Input label="Email" />
+      <Button>Submit</Button>
+    </div>
+  );
+}
+```
+
+### Después de acciones
+
+```tsx
+import { Alert, Button } from "@zevaguillo/ui-components";
+
+function ActionWithFeedback() {
+  const [message, setMessage] = useState(null);
+
+  const handleSave = async () => {
+    await save();
+    setMessage({ type: "success", text: "Saved!" });
+  };
+
+  return (
+    <div>
+      {message && <Alert variant={message.type}>{message.text}</Alert>}
+      <Button onClick={handleSave}>Save</Button>
+    </div>
+  );
+}
+```
+
+---
+
+## Cuándo elegir entre Alert y Toast
+
+| Situación                                 | Componente  |
+| ----------------------------------------- | ----------- |
+| Mensaje importante que no puede ignorarse | `Alert`     |
+| Feedback positivo temporal                | `Toast`     |
+| Confirmación de acción                    | `Toast`     |
+| Error que requiere atención               | `Alert`     |
+| Información contextual                    | `InlineTip` |
+
+---
+
+## Accesorios Relacionados
+
+- [Toast](/docs/components-toast--docs) - Para notificaciones temporales
+- [Modal](/docs/components-modal--docs) - Para diálogos
+- [InlineTip](/docs/components-inline-tip--docs) - Para tips contextuales

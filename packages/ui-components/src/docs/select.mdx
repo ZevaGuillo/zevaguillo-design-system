@@ -1,0 +1,379 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Story,
+  Canvas,
+  Markdown,
+} from "@storybook/blocks";
+
+<Meta name="Select Documentation" />
+
+# Select Component
+
+El componente `Select` permite a los usuarios elegir una opción de una lista predefinida de opciones.
+
+---
+
+## Especificaciones del Componente
+
+### Propiedades
+
+| Prop           | Tipo                      | Default       | Descripción                   |
+| -------------- | ------------------------- | ------------- | ----------------------------- |
+| `options`      | `SelectOption[]`          | `[]`          | Array de opciones             |
+| `value`        | `string`                  | -             | Valor seleccionado            |
+| `defaultValue` | `string`                  | -             | Valor inicial (no controlado) |
+| `placeholder`  | `string`                  | `"Select..."` | Texto cuando no hay selección |
+| `label`        | `string`                  | -             | Etiqueta del campo            |
+| `error`        | `boolean`                 | `false`       | Estado de error               |
+| `errorMessage` | `string`                  | -             | Mensaje de error              |
+| `disabled`     | `boolean`                 | `false`       | Si está deshabilitado         |
+| `onChange`     | `(value: string) => void` | -             | Callback al cambiar           |
+| `className`    | `string`                  | `""`          | Clases CSS adicionales        |
+
+### Tipo SelectOption
+
+```typescript
+interface SelectOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+```
+
+---
+
+## Cuándo Usar Select
+
+### ✅ Usar Select cuando:
+
+1. **Opciones predefinidas**: Tienes un conjunto fijo de opciones
+2. **Una sola selección**: El usuario debe elegir una opción
+3. **Muchas opciones**: Más de 5-7 opciones
+4. **Ahorro espacio**: Cuando las opciones ocupan mucho espacio
+
+### ❌ NO usar Select cuando:
+
+1. **Pocas opciones** (2-4): Usa `Radio` para mejor UX
+2. **Selección múltiple**: Usa `Checkbox` group
+3. **Búsqueda activa**: Considera `Combobox` o `Command`
+4. **Opciones frecuentes**: Si cambian a menudo, usa página
+
+---
+
+## Mejores Prácticas
+
+### 1. Opciones significativas
+
+```tsx
+// ✅ CORRECTO
+const options = [
+  { value: "us", label: "United States" },
+  { value: "uk", label: "United Kingdom" },
+  { value: "ca", label: "Canada" },
+];
+
+// ❌ INCORRECTO
+const options = [
+  { value: "1", label: "Option 1" },
+  { value: "2", label: "Option 2" },
+];
+```
+
+### 2. Placeholder descriptivo
+
+```tsx
+// ✅ CORRECTO
+<Select
+  options={countries}
+  placeholder="Select your country"
+/>
+
+// ❌ INCORRECTO
+<Select
+  options={countries}
+  placeholder="Select"
+/>
+```
+
+### 3. Primer opción inválida como placeholder
+
+```tsx
+// ✅ CORRECTO
+<Select
+  options={options}
+  placeholder="Select an option"
+/>
+
+// ❌ INCORRECTO - Opción "None" que confunde
+<Select
+  options={[{ value: '', label: 'None' }, ...options]}
+/>
+```
+
+### 4. Labels claros
+
+```tsx
+// ✅ CORRECTO
+<Select
+  label="Country"
+  options={countries}
+  placeholder="Select country"
+/>
+
+// ❌ INCORRECTO
+<Select
+  options={countries}
+  placeholder="Select..."
+/>
+```
+
+### 5. Manejo de errores
+
+```tsx
+// ✅ CORRECTO
+<Select
+  label="Category"
+  value={category}
+  onChange={setCategory}
+  options={categories}
+  error={touched && !category}
+  errorMessage={touched && !category ? "Please select a category" : undefined}
+/>
+```
+
+---
+
+## Malas Prácticas
+
+### 1. Muchas opciones sin búsqueda
+
+```tsx
+// ❌ INCORRECTO - 100+ países en dropdown
+<Select options={allCountries} />
+
+// ✅ CORRECTO - Usar Command o alternativa con búsqueda
+<Command options={allCountries} />
+```
+
+### 2. Select para acciones
+
+```tsx
+// ❌ INCORRECTO - Select no es para ejecutar acciones
+<Select
+  options={[
+    { value: 'edit', label: 'Edit' },
+    { value: 'delete', label: 'Delete' },
+  ]}
+/>
+
+// ✅ CORRECTO - Botones o dropdown menu
+<Dropdown
+  trigger={<Button>Actions</Button>}
+  items={[
+    { label: 'Edit', onClick: handleEdit },
+    { label: 'Delete', onClick: handleDelete },
+  ]}
+/>
+```
+
+### 3. Select sin label
+
+```tsx
+// ❌ INCORRECTO
+<Select options={options} />
+
+// ✅ CORRECTO
+<Select label="Choose option" options={options} />
+```
+
+### 4. Opciones que no tienen sentido
+
+```tsx
+// ❌ INCORRECTO - Mezclar categorías
+<Select
+  options={[
+    { value: 'red', label: 'Red' },
+    { value: 'small', label: 'Small' },
+    { value: 'expensive', label: 'Expensive' },
+  ]}
+/>
+
+// ✅ CORRECTO - Opciones relacionadas
+<Select
+  label="Color"
+  options={[
+    { value: 'red', label: 'Red' },
+    { value: 'blue', label: 'Blue' },
+    { value: 'green', label: 'Green' },
+  ]}
+/>
+```
+
+---
+
+## Implementación
+
+### Básico
+
+```tsx
+import { useState } from "react";
+import { Select } from "@zevaguillo/ui-components";
+
+function Example() {
+  const [value, setValue] = useState("");
+
+  const options = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+  ];
+
+  return (
+    <Select
+      label="Choose option"
+      value={value}
+      onChange={setValue}
+      options={options}
+      placeholder="Select an option"
+    />
+  );
+}
+```
+
+### Con valor inicial
+
+```tsx
+import { useState } from "react";
+import { Select } from "@zevaguillo/ui-components";
+
+function WithValue() {
+  const [country, setCountry] = useState("us");
+
+  const countries = [
+    { value: "us", label: "United States" },
+    { value: "uk", label: "United Kingdom" },
+    { value: "ca", label: "Canada" },
+  ];
+
+  return (
+    <Select
+      label="Country"
+      value={country}
+      onChange={setCountry}
+      options={countries}
+    />
+  );
+}
+```
+
+### Con validación
+
+```tsx
+import { useState } from "react";
+import { Select, Button } from "@zevaguillo/ui-components";
+
+function FormExample() {
+  const [category, setCategory] = useState("");
+  const [touched, setTouched] = useState(false);
+
+  const categories = [
+    { value: "tech", label: "Technology" },
+    { value: "design", label: "Design" },
+    { value: "marketing", label: "Marketing" },
+  ];
+
+  const handleSubmit = () => {
+    setTouched(true);
+    if (category) {
+      // Submit
+    }
+  };
+
+  return (
+    <div>
+      <Select
+        label="Category"
+        value={category}
+        onChange={(v) => {
+          setCategory(v);
+          setTouched(true);
+        }}
+        options={categories}
+        placeholder="Select category"
+        error={touched && !category}
+        errorMessage={
+          touched && !category ? "Please select a category" : undefined
+        }
+      />
+      <Button onClick={handleSubmit}>Submit</Button>
+    </div>
+  );
+}
+```
+
+### Con opción deshabilitada
+
+```tsx
+import { Select } from "@zevaguillo/ui-components";
+
+function WithDisabledOption() {
+  const options = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2 (Unavailable)", disabled: true },
+    { value: "option3", label: "Option 3" },
+  ];
+
+  return (
+    <Select label="Select option" options={options} placeholder="Choose..." />
+  );
+}
+```
+
+---
+
+## Accesibilidad
+
+### Requisitos
+
+1. **Label asociado**: Siempre incluir label
+2. **Keyboard navigation**: Navegar con flechas
+3. **Enter para seleccionar**: Seleccionar opción con Enter
+4. **Escape para cerrar**: Cerrar dropdown con Escape
+
+### Implementación accesible
+
+```tsx
+// ✅ CORRECTO
+<Select
+  label="Country"
+  id="country"
+  options={options}
+  error={hasError}
+  errorMessage={errorMessage}
+  aria-describedby={hasError ? "country-error" : undefined}
+/>
+```
+
+---
+
+## Cuándo elegir entre componentes
+
+| Situación                    | Componente recomendado |
+| ---------------------------- | ---------------------- |
+| 2-4 opciones fijas           | `Radio` group          |
+| 5+ opciones                  | `Select`               |
+| Muchas opciones con búsqueda | `Command`              |
+| Múltiple selección           | `Checkbox` group       |
+| Binary (sí/no)               | `Toggle`               |
+
+---
+
+## Accesorios Relacionados
+
+- [Radio](/docs/components-radio--docs) - Para pocas opciones
+- [Command](/docs/components-command--docs) - Para búsqueda
+- [Checkbox](/docs/components-checkbox--docs) - Para múltiples opciones
+- [Toggle](/docs/components-toggle--docs) - Para booleanos

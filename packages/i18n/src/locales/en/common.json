@@ -1,0 +1,36 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "button": {
+    "primary": "Primary Action",
+    "secondary": "Secondary Action",
+    "danger": "Danger Action"
+  },
+  "form": {
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "minLength": "Minimum {{count}} characters required",
+    "maxLength": "Maximum {{count}} characters allowed"
+  },
+  "messages": {
+    "saved": "Changes saved successfully",
+    "deleted": "Item deleted successfully",
+    "error": "An error occurred. Please try again.",
+    "noResults": "No results found"
+  }
+}

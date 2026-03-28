@@ -1,0 +1,383 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Story,
+  Canvas,
+  Markdown,
+} from "@storybook/blocks";
+
+<Meta name="Input Documentation" />
+
+# Input Component
+
+El componente `Input` permite a los usuarios ingresar y editar texto. Es fundamental para cualquier formulario.
+
+---
+
+## Especificaciones del Componente
+
+### Propiedades
+
+| Prop           | Tipo                                                                        | Default  | Descripción                    |
+| -------------- | --------------------------------------------------------------------------- | -------- | ------------------------------ |
+| `type`         | `"text" \| "password" \| "email" \| "number" \| "search" \| "tel" \| "url"` | `"text"` | Tipo de input                  |
+| `value`        | `string`                                                                    | -        | Valor controlado               |
+| `defaultValue` | `string`                                                                    | -        | Valor inicial (no controlado)  |
+| `label`        | `string`                                                                    | -        | Etiqueta del campo             |
+| `placeholder`  | `string`                                                                    | -        | Texto de marcador              |
+| `helperText`   | `string`                                                                    | -        | Texto de ayuda                 |
+| `error`        | `boolean`                                                                   | `false`  | Muestra estado de error        |
+| `errorMessage` | `string`                                                                    | -        | Mensaje de error               |
+| `disabled`     | `boolean`                                                                   | `false`  | Si el campo está deshabilitado |
+| `onChange`     | `(value: string) => void`                                                   | -        | Callback al cambiar            |
+| `className`    | `string`                                                                    | `""`     | Clases CSS adicionales         |
+
+---
+
+## Cuándo Usar Input
+
+### ✅ Usar Input cuando:
+
+1. **Texto libre**: El usuario necesita ingresar texto corto o largo
+2. **Formularios**: Cualquier tipo de formulario (registro, login, búsqueda)
+3. **Datos específicos**: Email, teléfono, URL, números
+4. **Búsqueda**: Campos de búsqueda
+
+### ❌ NO usar Input cuando:
+
+1. **Opciones predefinidas**: Usa `Select` o `Radio`
+2. **Sí/No**: Usa `Checkbox` o `Toggle`
+3. **Selección múltiple**: Usa `Checkbox` group
+
+---
+
+## Guía de Tipos
+
+### Text (Predeterminado)
+
+```tsx
+<Input label="Name" placeholder="Enter your name" />
+```
+
+**Cuándo usarlo:**
+
+- Nombres, apellidos
+- Títulos
+- Descripciones cortas
+
+---
+
+### Email
+
+```tsx
+<Input type="email" label="Email" placeholder="you@example.com" />
+```
+
+**Cuándo usarlo:**
+
+- Campos de email
+- Validación automática de formato email
+
+---
+
+### Password
+
+```tsx
+<Input type="password" label="Password" placeholder="••••••••" />
+```
+
+**Cuándo usarlo:**
+
+- Contraseñas
+- Datos sensibles
+
+---
+
+### Number
+
+```tsx
+<Input type="number" label="Age" placeholder="0" />
+```
+
+**Cuándo usarlo:**
+
+- Cantidades
+- Precios
+- Números de teléfono
+
+---
+
+### Search
+
+```tsx
+<Input type="search" placeholder="Search..." />
+```
+
+**Cuándo usarlo:**
+
+- Barras de búsqueda
+- Filtros
+
+---
+
+## Mejores Prácticas
+
+### 1. Siempre incluye label
+
+```tsx
+// ✅ CORRECTO
+<Input label="Email" />
+
+// ❌ INCORRECTO - Sin label
+<Input placeholder="Enter email" />
+```
+
+### 2. Helper text para contexto adicional
+
+```tsx
+// ✅ CORRECTO - Guía útil
+<Input
+  label="Password"
+  type="password"
+  helperText="Must be at least 8 characters"
+/>
+```
+
+### 3. Mensajes de error claros y accionables
+
+```tsx
+// ✅ CORRECTO - Específico
+<Input
+  label="Email"
+  error
+  errorMessage="Please enter a valid email address"
+/>
+
+// ❌ INCORRECTO - Genérico
+<Input
+  label="Email"
+  error
+  errorMessage="Error"
+/>
+```
+
+### 4. Placeholder útil
+
+```tsx
+// ✅ CORRECTO - Ejemplo válido
+<Input
+  label="Phone"
+  placeholder="+1 (555) 000-0000"
+/>
+
+// ❌ INCORRECTO - Repite el label
+<Input
+  label="Phone"
+  placeholder="Enter phone"
+/>
+```
+
+### 5. Estados claramente diferenciados
+
+```tsx
+function FormField() {
+  const [value, setValue] = useState("");
+  const [touched, setTouched] = useState(false);
+  const error = touched && !value ? "Required" : undefined;
+
+  return (
+    <Input
+      label="Name"
+      value={value}
+      onChange={setValue}
+      onBlur={() => setTouched(true)}
+      error={!!error}
+      errorMessage={error}
+    />
+  );
+}
+```
+
+---
+
+## Malas Prácticas
+
+### 1. Labels ausentes
+
+```tsx
+// ❌ INCORRECTO
+<Input placeholder="Enter your name" />
+
+// ✅ CORRECTO
+<Input label="Name" placeholder="John Doe" />
+```
+
+### 2. Placeholder como label
+
+```tsx
+// ❌ INCORRECTO
+<Input placeholder="Enter email" />
+
+// ✅ CORRECTO
+<Input label="Email" placeholder="you@example.com" />
+```
+
+### 3. Sin validación visible
+
+```tsx
+// ❌ INCORRECTO - Solo cambia el border
+<Input value={value} onChange={setValue} error={hasError} />
+
+// ✅ CORRECTO - Mensaje claro
+<Input
+  value={value}
+  onChange={setValue}
+  error={hasError}
+  errorMessage="This field is required"
+/>
+```
+
+### 4. Input sin propósito claro
+
+```tsx
+// ❌ INCORRECTO
+<Input placeholder="Write something..." />
+
+// ✅ CORRECTO
+<Input
+  label="Description"
+  placeholder="Enter a brief description of your project"
+/>
+```
+
+---
+
+## Implementación
+
+### Básico controlado
+
+```tsx
+import { useState } from "react";
+import { Input } from "@zevaguillo/ui-components";
+
+function Example() {
+  const [value, setValue] = useState("");
+
+  return (
+    <Input
+      label="Name"
+      value={value}
+      onChange={setValue}
+      placeholder="Enter your name"
+    />
+  );
+}
+```
+
+### Formulario con validación
+
+```tsx
+import { useState } from "react";
+import { Input, Button } from "@zevaguillo/ui-components";
+
+function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      // Submit form
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Input
+        label="Email"
+        type="email"
+        value={email}
+        onChange={setEmail}
+        error={!!errors.email}
+        errorMessage={errors.email}
+      />
+      <Input
+        label="Password"
+        type="password"
+        value={password}
+        onChange={setPassword}
+        error={!!errors.password}
+        errorMessage={errors.password}
+      />
+      <Button type="submit" variant="primary">
+        Login
+      </Button>
+    </form>
+  );
+}
+```
+
+### Con helper text
+
+```tsx
+import { Input } from "@zevaguillo/ui-components";
+
+function WithHelper() {
+  return (
+    <Input
+      label="Username"
+      placeholder="johndoe"
+      helperText="This will be displayed on your profile"
+    />
+  );
+}
+```
+
+---
+
+## Accesibilidad
+
+### Requisitos WCAG
+
+1. **Label visible**: Siempre debe haber un label asociado
+2. **Asociación label-input**: Usar `htmlFor` o envolver el input
+3. **Mensajes de error**: Asociar con `aria-describedby`
+4. **Placeholder**: No usar como reemplazo del label
+
+### Implementación accesible
+
+```tsx
+// ✅ CORRECTO - Label asociado
+<Input
+  label="Email"
+  id="email"
+  error={hasError}
+  errorMessage={errorMessage}
+  aria-describedby={hasError ? 'email-error' : undefined}
+/>
+
+// O usando htmlFor
+<label htmlFor="email">Email</label>
+<Input id="email" />
+```
+
+---
+
+## Accesorios Relacionados
+
+- [Button](/docs/components-button--docs) - Para acciones de formulario
+- [Select](/docs/components-select--docs) - Para opciones predefinidas
+- [Checkbox](/docs/components-checkbox--docs) - Para booleanos
+- [Label](/docs/components-label--docs) - Para labels personalizados
+- [HelperText](/docs/components-hint--docs) - Para texto de ayuda

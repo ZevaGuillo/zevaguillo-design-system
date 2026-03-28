@@ -1,0 +1,392 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Story,
+  Canvas,
+  Markdown,
+} from "@storybook/blocks";
+
+<Meta name="Button Documentation" />
+
+# Button Component
+
+El componente `Button` es un elemento interactivo fundamental que permite a los usuarios ejecutar acciones. Es uno de los componentes más utilizados en cualquier interfaz de usuario.
+
+---
+
+## Especificaciones del Componente
+
+### Propiedades
+
+| Prop        | Tipo                                                           | Default     | Descripción                     |
+| ----------- | -------------------------------------------------------------- | ----------- | ------------------------------- |
+| `variant`   | `"primary" \| "secondary" \| "outline" \| "ghost" \| "danger"` | `"primary"` | Estilo visual del botón         |
+| `size`      | `"small" \| "medium" \| "large"`                               | `"medium"`  | Tamaño del botón                |
+| `children`  | `ReactNode`                                                    | -           | Contenido del botón             |
+| `disabled`  | `boolean`                                                      | `false`     | Si el botón está deshabilitado  |
+| `loading`   | `boolean`                                                      | `false`     | Muestra un spinner de carga     |
+| `type`      | `"button" \| "submit" \| "reset"`                              | `"button"`  | Tipo del botón                  |
+| `onClick`   | `() => void`                                                   | -           | Función callback al hacer click |
+| `className` | `string`                                                       | `""`        | Clases CSS adicionales          |
+
+### Dimensiones
+
+| Size     | Height      | Padding | Font Size |
+| -------- | ----------- | ------- | --------- |
+| `small`  | 32px (h-8)  | px-3    | text-xs   |
+| `medium` | 40px (h-10) | px-4    | text-sm   |
+| `large`  | 48px (h-12) | px-6    | text-base |
+
+---
+
+## Cuándo Usar el Componente Button
+
+### ✅ Usar Button cuando:
+
+1. **Acciones principales**: El usuario necesita ejecutar una acción principal como guardar, enviar, crear, etc.
+2. **Navegación**: Necesitas llevar al usuario a otra página o sección.
+3. **Confirmación**: El usuario necesita confirmar una decisión.
+4. **Acciones destructivas**: Cuando el usuario va a eliminar o modificar algo permanentemente (usar `danger`).
+
+### ❌ NO usar Button cuando:
+
+1. **Navegación simple**: Para enlaces que van a otras páginas, usa el componente `Link` en su lugar.
+2. **Solo texto**: Si no hay acción asociada, usa texto plano.
+3. **Múltiples acciones**: Si hay muchas acciones relacionadas, considera usar un `Dropdown` o `Menu`.
+
+---
+
+## Guía de Variantes
+
+### Primary (Predeterminada)
+
+```tsx
+<Button variant="primary">Save</Button>
+```
+
+**Cuándo usarla:**
+
+- Es la variante más prominente y visible
+- Usa para la **acción principal** en cada sección o formulario
+- Solo debe haber **un botón primary** por sección
+- Ideal para CTAs (Call to Action) principales
+
+**Ejemplos de uso:**
+
+- "Save", "Submit", "Create", "Send"
+- "Buy Now", "Get Started", "Sign Up"
+
+---
+
+### Secondary
+
+```tsx
+<Button variant="secondary">Cancel</Button>
+```
+
+**Cuándo usarla:**
+
+- Acciones alternativas importantes pero no principales
+- Cuando hay múltiples acciones en un grupo
+- Para acciones de navegación secundaria
+
+**Ejemplos de uso:**
+
+- "Cancel", "Back", "Return"
+- "Edit" (cuando hay un "Save" principal)
+
+---
+
+### Outline
+
+```tsx
+<Button variant="outline">Learn More</Button>
+```
+
+**Cuándo usarla:**
+
+- Cuando necesitas un botón menos prominente que secondary
+- Para acciones que no son críticas
+- En tarjetas o secciones con mucho contenido visual -特别好 para botones "ver más" o "más información"
+
+**Ejemplos de uso:**
+
+- "Learn More", "View Details", "Read More"
+- "Download", "Export"
+
+---
+
+### Ghost
+
+```tsx
+<Button variant="ghost">Edit</Button>
+```
+
+**Cuándo usarla:**
+
+- En barras de herramientas o headers
+- Cuando necesitas botones muy sutiles
+- Para acciones en tablas o listas
+- Cuando hay muchos botones y no quieres saturar visualmente
+
+**Ejemplos de uso:**
+
+- "Edit", "Delete", "Copy" en filas de tabla
+- Iconos de acción en headers
+
+---
+
+### Danger
+
+```tsx
+<Button variant="danger">Delete Account</Button>
+```
+
+**Cuándo usarla:**
+
+- **SIEMPRE** para acciones destructivas
+- Cuando la acción no se puede deshacer
+- Para advertencias claras de consecuencias
+
+**Ejemplos de uso:**
+
+- "Delete", "Remove", "Uninstall"
+- "Cancel Subscription", "Close Account"
+
+---
+
+## Mejores Prácticas
+
+### 1. Un solo botón primary por sección
+
+```tsx
+// ✅ CORRECTO - Un solo primary
+<div>
+  <h1>Create Product</h1>
+  <form>
+    <Input label="Name" />
+    <Button variant="primary">Create</Button>
+    <Button variant="ghost">Cancel</Button>
+  </form>
+</div>
+
+// ❌ INCORRECTO - Múltiples primary
+<div>
+  <Button variant="primary">Save</Button>
+  <Button variant="primary">Preview</Button> // Confusion!
+</div>
+```
+
+### 2. Siempre incluye labels claros
+
+```tsx
+// ✅ CORRECTO - Acción clara
+<Button variant="primary">Save Changes</Button>
+
+// ❌ INCORRECTO - Vago
+<Button variant="primary">Go</Button>
+```
+
+### 3. Usa loading state para acciones asíncronas
+
+```tsx
+// ✅ CORRECTO - Indica que algo está pasando
+const [loading, setLoading] = useState(false);
+
+const handleSave = async () => {
+  setLoading(true);
+  await saveData();
+  setLoading(false);
+};
+
+<Button loading={loading} onClick={handleSave}>
+  Save
+</Button>;
+```
+
+### 4. Orden consistente de botones
+
+```tsx
+// ✅ CORRECTO - Primary a la derecha, acciones secundarias a la izquierda
+<div>
+  <Button variant="ghost">Cancel</Button>
+  <Button variant="primary">Save</Button>
+</div>
+```
+
+### 5. Deshabilita durante procesos
+
+```tsx
+// ✅ CORRECTO
+<Button disabled={isSubmitting} loading={isSubmitting}>
+  {isSubmitting ? "Saving..." : "Save"}
+</Button>
+```
+
+---
+
+## Malas Prácticas (Anti-patterns)
+
+### 1. No usar la variante correcta para acciones destructivas
+
+```tsx
+// ❌ INCORRECTO
+<Button variant="primary" onClick={handleDelete}>
+  Delete
+</Button>
+
+// ✅ CORRECTO
+<Button variant="danger" onClick={handleDelete}>
+  Delete
+</Button>
+```
+
+### 2. Botones con texto ambiguo
+
+```tsx
+// ❌ INCORRECTO
+<Button>Click</Button>
+<Button>Here</Button>
+<Button>OK</Button>
+
+// ✅ CORRECTO
+<Button>Save</Button>
+<Button>View Details</Button>
+<Button>Confirm</Button>
+```
+
+### 3. Ignorar el estado de loading
+
+```tsx
+// ❌ INCORRECTO - Usuario puede hacer múltiples clicks
+<Button onClick={handleSubmit}>Submit</Button>
+
+// ✅ CORRECTO
+<Button loading={isLoading} onClick={handleSubmit}>
+  Submit
+</Button>
+```
+
+### 4. Usar botones para navegación
+
+```tsx
+// ❌ INCORRECTO
+<Button onClick={() => navigate("/page")}>Go to Page</Button>;
+
+// ✅ CORRECTO - Usar Link o componente de navegación
+import { Link } from "react-router-dom";
+<Link to="/page">Go to Page</Link>;
+```
+
+### 5. Exceso de botones en una sección
+
+```tsx
+// ❌ INCORRECTO - Sobrecarga visual
+<div>
+  <Button variant="primary">Save</Button>
+  <Button variant="primary">Preview</Button>
+  <Button variant="secondary">Cancel</Button>
+  <Button variant="outline">Export</Button>
+  <Button variant="ghost">Delete Draft</Button>
+</div>
+
+// ✅ CORRECTO - Agrupar acciones secundarias
+<div>
+  <Button variant="primary">Save</Button>
+  <Dropdown
+    trigger={<Button variant="ghost">•••</Button>}
+    items={[
+      { label: 'Preview', onClick: handlePreview },
+      { label: 'Export', onClick: handleExport },
+      { label: 'Delete Draft', onClick: handleDelete },
+    ]}
+  />
+</div>
+```
+
+---
+
+## Implementación
+
+### Uso básico
+
+```tsx
+import { Button } from "@zevaguillo/ui-components";
+
+function App() {
+  return (
+    <Button variant="primary" onClick={() => console.log("clicked")}>
+      Click me
+    </Button>
+  );
+}
+```
+
+### Con loading state
+
+```tsx
+import { useState } from "react";
+import { Button } from "@zevaguillo/ui-components";
+
+function SubmitForm() {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    await api.submit();
+    setLoading(false);
+  };
+
+  return (
+    <Button variant="primary" loading={loading} onClick={handleSubmit}>
+      Submit
+    </Button>
+  );
+}
+```
+
+### Grupo de botones
+
+```tsx
+import { Button } from "@zevaguillo/ui-components";
+
+function ButtonGroup() {
+  return (
+    <div style={{ display: "flex", gap: "0.5rem" }}>
+      <Button variant="ghost">Cancel</Button>
+      <Button variant="primary">Save</Button>
+    </div>
+  );
+}
+```
+
+---
+
+## Accesibilidad
+
+El componente Button incluye las siguientes características de accesibilidad:
+
+1. **Rol ARIA**: Se renderiza con `role="button"`
+2. **Keyboard navigation**:
+   - `Enter` activa el botón
+   - `Space` activa el botón
+3. **Focus visible**:outline distintivo cuando el botón tiene foco
+4. **States**: Soporte completo para estados `disabled` y `loading`
+
+### Requisitos de accesibilidad
+
+- ✅ Siempre incluye texto descriptivo o usa `aria-label`
+- ✅ No depended solo del color para indicar acción
+- ✅ El texto del botón debe ser claro y descriptivo
+- ✅ Mantén contraste suficiente entre texto y fondo
+
+---
+
+## Relacionado
+
+- [Input](/docs/components-input--docs) - Para entrada de datos
+- [Modal](/docs/components-modal--docs) - Para diálogos modales
+- [Dropdown](/docs/components-dropdown--docs) - Para menús desplegables
+- [Link](/docs/components-link--docs) - Para navegación

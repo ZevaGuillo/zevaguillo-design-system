@@ -1,0 +1,36 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "search": "Rechercher",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "close": "Fermer"
+  },
+  "button": {
+    "primary": "Action Principale",
+    "secondary": "Action Secondaire",
+    "danger": "Action Dangereuse"
+  },
+  "form": {
+    "required": "Ce champ est requis",
+    "email": "Veuillez entrer un email valide",
+    "minLength": "Minimum {{count}} caractères requis",
+    "maxLength": "Maximum {{count}} caractères autorisés"
+  },
+  "messages": {
+    "saved": "Modifications enregistrées avec succès",
+    "deleted": "Élément supprimé avec succès",
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "noResults": "Aucun résultat trouvé"
+  }
+}

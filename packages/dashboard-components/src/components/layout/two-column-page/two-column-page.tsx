@@ -20,6 +20,24 @@ export const TwoColumnPage = ({
   left,
   right,
 }: TwoColumnPageProps) => {
+  const hasLeft = left !== undefined;
+  const hasRight = right !== undefined;
+  const hasChildren = children !== undefined;
+
+  const getGridCols = () => {
+    if (hasLeft && hasRight) return "grid-cols-1 lg:grid-cols-2";
+    if (hasLeft || hasRight) return "grid-cols-1 lg:grid-cols-3";
+    if (hasChildren) return "grid-cols-1";
+    return "grid-cols-1 lg:grid-cols-3";
+  };
+
+  const getSpan = (hasLeft: boolean, hasRight: boolean, isLeft?: boolean) => {
+    if (!hasLeft && !hasRight && hasChildren) return "";
+    if (hasLeft && hasRight) return "";
+    if (hasLeft || hasRight) return "lg:col-span-2";
+    return "lg:col-span-2";
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-start justify-between">
@@ -34,9 +52,12 @@ export const TwoColumnPage = ({
         {action && <Button onClick={action.onClick}>{action.label}</Button>}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">{children}</div>
-        {right && <div className="lg:col-span-1">{right}</div>}
+      <div className={`grid ${getGridCols()} gap-6`}>
+        {hasLeft && <div className={getSpan(true, false, true)}>{left}</div>}
+        {hasChildren && (
+          <div className={getSpan(hasLeft, hasRight)}>{children}</div>
+        )}
+        {hasRight && <div className={getSpan(false, true)}>{right}</div>}
       </div>
     </div>
   );

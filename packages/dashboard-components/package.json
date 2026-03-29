@@ -1,0 +1,60 @@
+{
+  "name": "@zevaguillo/dashboard-components",
+  "version": "0.1.0",
+  "description": "Dashboard components - specialized UI components for building admin dashboards",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./layout": "./src/components/layout/index.ts",
+    "./table": "./src/components/table/index.ts",
+    "./modals": "./src/components/modals/index.ts",
+    "./common": "./src/components/common/index.ts",
+    "./filtering": "./src/components/filtering/index.ts",
+    "./inputs": "./src/components/inputs/index.ts",
+    "./search": "./src/components/search/index.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsup",
+    "build-storybook": "storybook build",
+    "storybook": "storybook dev -p 6007",
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@zevaguillo/ui-components": "*",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "react-router-dom": "^6.0.0 || ^7.0.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-dropdown-menu": "^2.1.6",
+    "@radix-ui/react-select": "^2.1.6",
+    "@radix-ui/react-tooltip": "^1.1.7",
+    "@radix-ui/react-popover": "^1.1.6",
+    "@tanstack/react-table": "^8.21.3",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.474.0",
+    "react-day-picker": "^9.6.6"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.5.0",
+    "@storybook/addon-interactions": "^8.5.0",
+    "@storybook/addon-links": "^8.5.0",
+    "@storybook/react-vite": "^8.5.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "eslint-plugin-storybook": "^0.11.2",
+    "storybook": "^8.5.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  }
+}

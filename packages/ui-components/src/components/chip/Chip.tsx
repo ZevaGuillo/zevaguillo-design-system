@@ -9,6 +9,7 @@ export const Chip = ({
   selected = false,
   disabled = false,
   onClick,
+  onRemove,
   className = "",
 }: ChipProps) => {
   const colorStyles = {
@@ -74,13 +75,18 @@ export const Chip = ({
     },
   };
 
+  const handleRemove = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onRemove?.();
+  };
+
   return (
     <button
       type="button"
       disabled={disabled}
       onClick={onClick}
       className={clsx(
-        "inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-full transition-colors",
+        "inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-full transition-colors",
         "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500",
         selected
           ? colorStyles[color].filled.selected
@@ -90,7 +96,31 @@ export const Chip = ({
         className,
       )}
     >
-      {label}
+      <span>{label}</span>
+      {onRemove && !disabled && (
+        <button
+          type="button"
+          onClick={handleRemove}
+          className={clsx(
+            "ml-1 rounded-full p-0.5 hover:bg-black/10",
+            selected ? "hover:bg-white/20" : "hover:bg-black/10",
+          )}
+        >
+          <svg
+            className="h-3.5 w-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      )}
     </button>
   );
 };

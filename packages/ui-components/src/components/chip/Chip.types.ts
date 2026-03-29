@@ -11,6 +11,8 @@ export interface ChipProps {
   disabled?: boolean;
   /** Click handler */
   onClick?: () => void;
+  /** Remove handler */
+  onRemove?: () => void;
   /** Additional CSS class */
   className?: string;
 }

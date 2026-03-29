@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import { createPortal } from "react-dom";
 import type { TooltipProps } from "./Tooltip.types";
 
 export const Tooltip = ({
@@ -32,26 +31,23 @@ export const Tooltip = ({
       onMouseLeave={() => setIsVisible(false)}
     >
       {children}
-
-      {isVisible &&
-        createPortal(
+      {isVisible && (
+        <div
+          className={clsx(
+            "absolute z-50 px-3 py-2 text-sm text-white bg-gray-900 rounded-md shadow-lg",
+            "whitespace-nowrap animate-fade-in",
+            positionClasses[position],
+          )}
+        >
+          {content}
           <div
             className={clsx(
-              "absolute z-50 px-3 py-2 text-sm text-white bg-gray-900 rounded-md shadow-lg",
-              "whitespace-nowrap animate-fade-in",
-              positionClasses[position],
+              "absolute w-0 h-0 border-4 border-transparent",
+              arrowClasses[position],
             )}
-          >
-            {content}
-            <div
-              className={clsx(
-                "absolute w-0 h-0 border-4 border-transparent",
-                arrowClasses[position],
-              )}
-            />
-          </div>,
-          document.body,
-        )}
+          />
+        </div>
+      )}
     </div>
   );
 };

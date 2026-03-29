@@ -25,7 +25,10 @@ export const Textarea = ({
       {label && (
         <label
           htmlFor={textareaId}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className={clsx(
+            "block font-medium mb-1.5 text-sm",
+            error ? "text-red-600" : "text-gray-700",
+          )}
         >
           {label}
         </label>
@@ -41,11 +44,13 @@ export const Textarea = ({
         onChange={(e) => onChange?.(e.target.value)}
         onBlur={onBlur}
         className={clsx(
-          "block w-full rounded-md border-gray-300 shadow-sm",
-          "focus:border-sky-500 focus:ring-sky-500 sm:text-sm",
-          "disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500",
-          error && "border-red-500 focus:border-red-500 focus:ring-red-500",
-          "resize-y min-h-[80px]",
+          "w-full rounded-md border bg-white outline-none transition-all",
+          "placeholder:text-gray-400",
+          "disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:placeholder:text-gray-300",
+          "resize-y min-h-[80px] py-2 px-3 text-sm",
+          error
+            ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200"
+            : "border-gray-300 hover:border-gray-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-200",
         )}
       />
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}

@@ -2,9 +2,11 @@ import type { ReactNode } from "react";
 
 export interface PopoverProps {
   /** Trigger element */
-  trigger: ReactNode;
+  trigger?: ReactNode;
   /** Popover content */
-  content: ReactNode;
+  content?: ReactNode;
+  /** Children (alternative to trigger/content) */
+  children?: ReactNode;
   /** Whether the popover is open */
   open?: boolean;
   /** Callback when open state changes */

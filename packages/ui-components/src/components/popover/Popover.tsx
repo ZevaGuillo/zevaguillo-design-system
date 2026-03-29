@@ -5,6 +5,7 @@ import type { PopoverProps } from "./Popover.types";
 export const Popover = ({
   trigger,
   content,
+  children,
   open: controlledOpen,
   onOpenChange,
   position = "bottom",
@@ -45,17 +46,21 @@ export const Popover = ({
     right: "left-full ml-2 top-1/2 -translate-y-1/2",
   };
 
+  const triggerElement = trigger || (children && React.Children.only(children));
+  const popoverContent =
+    content || (children && !React.Children.only(children) ? children : null);
+
   return (
     <div ref={triggerRef} className={clsx("relative inline-block", className)}>
-      <div onClick={handleToggle}>{trigger}</div>
-      {isOpen && (
+      {triggerElement && <div onClick={handleToggle}>{triggerElement}</div>}
+      {isOpen && popoverContent && (
         <div
           className={clsx(
             "z-50 rounded-md border border-gray-200 bg-white p-2 shadow-lg",
             positionClasses[position],
           )}
         >
-          {content}
+          {popoverContent}
         </div>
       )}
     </div>

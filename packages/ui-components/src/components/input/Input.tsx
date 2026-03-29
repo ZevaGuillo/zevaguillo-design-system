@@ -14,6 +14,11 @@ export const Input = ({
   helperText,
   name,
   id,
+  ref,
+  autoFocus,
+  readOnly,
+  min,
+  max,
   size = "medium",
   className = "",
   onChange,
@@ -54,6 +59,7 @@ export const Input = ({
       )}
       <div className="relative">
         <input
+          ref={ref}
           type={isPassword ? (showPassword ? "text" : "password") : type}
           id={inputId}
           name={name}
@@ -61,6 +67,10 @@ export const Input = ({
           value={value}
           defaultValue={defaultValue}
           disabled={disabled}
+          autoFocus={autoFocus}
+          readOnly={readOnly}
+          min={min}
+          max={max}
           className={clsx(
             // Base styles
             "w-full rounded-md border bg-white outline-none transition-all",

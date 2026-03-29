@@ -1,3 +1,5 @@
+import type { RefObject } from "react";
+
 export interface InputProps {
   /** Input type */
   type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search";
@@ -23,6 +25,16 @@ export interface InputProps {
   name?: string;
   /** ID */
   id?: string;
+  /** Ref */
+  ref?: RefObject<HTMLInputElement>;
+  /** Auto focus */
+  autoFocus?: boolean;
+  /** Read only */
+  readOnly?: boolean;
+  /** Min value (for number inputs) */
+  min?: number;
+  /** Max value (for number inputs) */
+  max?: number;
   /** Additional CSS class */
   className?: string;
   /** Change handler */

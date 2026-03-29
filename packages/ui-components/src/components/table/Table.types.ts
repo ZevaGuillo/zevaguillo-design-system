@@ -15,9 +15,9 @@ export interface TableColumn<T = any> {
 
 export interface TableProps<T = any> {
   /** Table columns */
-  columns: TableColumn<T>[];
+  columns?: TableColumn<T>[];
   /** Table data */
-  data: T[];
+  data?: T[];
   /** Empty message */
   emptyMessage?: string;
   /** Loading state */
@@ -26,4 +26,29 @@ export interface TableProps<T = any> {
   onRowClick?: (row: T, index: number) => void;
   /** Additional CSS class */
   className?: string;
+  /** Children (for sub-components API) */
+  children?: ReactNode;
+}
+
+export interface TableHeadProps {
+  children: ReactNode;
+  className?: string;
+  onClick?: (event?: any) => void;
+}
+
+export interface TableBodyProps {
+  children: ReactNode;
+}
+
+export interface TableRowProps {
+  children: ReactNode;
+  onClick?: () => void;
+}
+
+export interface TableHeaderProps {
+  children: ReactNode;
+}
+
+export interface TableCellProps {
+  children: ReactNode;
 }

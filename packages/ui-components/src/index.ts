@@ -143,7 +143,16 @@ export { TimeInput } from "./components/time-input";
 export type { TimeInputProps } from "./components/time-input";
 
 export { FocusModal } from "./components/focus-modal";
-export type { FocusModalProps } from "./components/focus-modal";
+export type {
+  FocusModalProps,
+  FocusModalHeaderProps,
+  FocusModalTitleProps,
+  FocusModalDescriptionProps,
+  FocusModalBodyProps,
+  FocusModalFooterProps,
+  FocusModalCloseProps,
+  FocusModalContentProps,
+} from "./components/focus-modal";
 
 export { ProgressAccordion } from "./components/progress-accordion";
 export type {

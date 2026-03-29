@@ -1,6 +1,6 @@
 export interface BadgeProps {
   /** Badge variant */
-  variant?: "default" | "success" | "warning" | "error" | "info";
+  variant?: "default" | "success" | "warning" | "error" | "info" | "danger";
   /** Badge size */
   size?: "small" | "medium";
   /** Badge content */

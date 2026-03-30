@@ -32,6 +32,38 @@ All packages MUST follow Semantic Versioning (MAJOR.MINOR.PATCH). Breaking chang
 - **Component Development**: Storybook 8+
 - **UI Framework**: React 18+
 
+## Packages
+
+The monorepo contains the following independent npm packages:
+
+### @zevaguillo/design-tokens
+
+Design tokens for the Zevaguillo design system. Contains color palettes, typography scales, spacing values, and other fundamental design values.
+
+### @zevaguillo/ui-preset
+
+Zevaguillo UI preset for Tailwind CSS. Provides custom Tailwind configuration and utilities extending the design tokens.
+
+### @zevaguillo/ui-components
+
+Core UI components for the Zevaguillo design system. Contains reusable React components (buttons, inputs, cards, etc.).
+
+### @zevaguillo/hooks
+
+UI-specific React hooks for the Zevaguillo design system. Provides custom hooks for component logic and state management.
+
+### @zevaguillo/i18n
+
+Internationalization utilities for the Zevaguillo design system. Supports multiple languages and localization.
+
+### @zevaguillo/utils
+
+Utility functions for the Zevaguillo design system. Contains helper functions used across packages.
+
+### @zevaguillo/dashboard-components
+
+Specialized UI components for building admin dashboards. Includes tables, modals, filters, search, and layout components.
+
 ## Development Workflow
 
 ### Code Quality Gates
